@@ -172,28 +172,3 @@ class pascalVOCLoader(data.Dataset):
                 lbl = m.toimage(lbl, high=lbl.max(), low=lbl.min())
                 m.imsave(pjoin(target_path, fname), lbl)
                 
-
-
-# In[2]:
-
-
-local_path = "C:/Users/Administrator/Desktop/514/ImgSegNN/VOC2012" # Root directory of VOC2012
-bs = 4
-dst = pascalVOCLoader(root=local_path)
-trainloader = data.DataLoader(dst, batch_size=bs)
-for i, data in enumerate(trainloader):
-    imgs, labels = data
-    imgs = imgs.numpy()
-    imgs = np.transpose(imgs, [0,2,3,1])
-    #plt.imshow(imgs[0]) # Can't print because of normalization
-    print(imgs[0])
-    plt.imshow(labels[0])
-    break; # Avoid printing too much
-
-
-# In[ ]:
-
-
-
-    
-
