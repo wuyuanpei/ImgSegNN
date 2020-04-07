@@ -2,8 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from res_block import res_block
-
 class seg_out_block(nn.Module):
     
     def __init__(

@@ -16,8 +16,8 @@ class in_block(nn.Module):
     '''
     def __init__(
         self,
-        channel_in,
-        channel_out,
+        channel_in = 3,
+        channel_out = 16,
     ):
         super(in_block, self).__init__()
         
@@ -36,7 +36,7 @@ class in_block(nn.Module):
         self.conv2 = nn.Conv2d(
             kernel_size = 3,
             padding = 1,
-            in_channels = self.channel_in,
+            in_channels = self.channel_out,
             out_channels = self.channel_out,
         )
         

@@ -20,8 +20,8 @@ class seg_path(nn.Module):
         super(seg_path, self).__init__()
         
         self.in_block = in_block
-        self.enconder = encoder
-        self.deconder = decoder
+        self.encoder = encoder
+        self.decoder = decoder
         self.seg_out_block = seg_out_block
         
     def forward(self, x):
@@ -50,9 +50,9 @@ class seg_path(nn.Module):
         
         self.up1 = self.decoder.upsample1(self.up_level2)
         up1_dummy = torch.cat([self.up1, self.down_level1], 1)
-        up1_dummy = self.decoder.conv2(up1_dummy)
+        up1_dummy = self.decoder.conv1(up1_dummy)
         self.up_level1 = self.decoder.up_block1(up1_dummy)
         
-        self.output = seg_out_block(self.up_level1)
+        self.output = self.seg_out_block(self.up_level1)
         
         return self.output
