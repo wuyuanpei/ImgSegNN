@@ -60,8 +60,8 @@ class decoder(nn.Module):
         )
         
         self.conv2 = nn.Conv2d(
-            in_channels = self.bf * 2,
-            out_channels = self.bf * 1,
+            in_channels = self.bf * 4,
+            out_channels = self.bf * 2,
             kernel_size = 1
         )
             
@@ -91,15 +91,15 @@ class decoder(nn.Module):
     def forward(self, x):
         
         up4 = self.upsample4(x)
-        self.up_level4 = self.up_block(up4)
+        self.up_level4 = self.up_block4(up4)
         
         up3 = self.upsample3(self.up_level4)
         self.up_level3 = self.up_block3(up3)
         
         up2 = self.upsample2(self.up_level3)
-        self.up_level2 = self.up_block3(up2)
+        self.up_level2 = self.up_block2(up2)
         
         up1 = self.upsample1(self.up_level2)
-        self.up_level1 = self.up_block2(up1)
+        self.up_level1 = self.up_block1(up1)
         
         return self.up_level1        
