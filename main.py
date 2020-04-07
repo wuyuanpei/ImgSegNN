@@ -23,7 +23,7 @@ net = seg_path(
 
 
 local_path = "./VOC2012" # Root directory of VOC2012
-bs = 1
+bs = 4
 dst = pascalVOCLoader(root=local_path)
 trainloader = data.DataLoader(dst, batch_size=bs)
 
@@ -32,6 +32,5 @@ for i, data in enumerate(trainloader):
     print(imgs.size())
     output = net(imgs)
     print(output.size())
-    #plt.imshow(labels[0])
-    #plt.show()
+    print(labels.size())
     break # Only one loop

@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 from loader import pascalVOCLoader
 
-class Trainer():
+class trainer():
 
     def __init__(
         self,

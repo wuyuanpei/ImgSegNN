@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# Modified by Richard Wu on 2020/4/5
+# Modified by Richard Wu on 2020/4/6
 
 import os
 from os.path import join as pjoin
@@ -27,12 +27,14 @@ class pascalVOCLoader(data.Dataset):
         root,
         split="trainval",
         is_transform=True,
+        is_normalize=True,
         img_size=512,
         test_mode=False,
     ):
         self.root = root
         self.split = split
         self.is_transform = is_transform
+        self.is_normalize = is_normalize
         self.test_mode = test_mode
         self.n_classes = 21
         self.mean = np.array([104.00699, 116.66877, 122.67892])
@@ -47,12 +49,19 @@ class pascalVOCLoader(data.Dataset):
                 self.files[split] = file_list
             self.setup_annotations()
 
-        self.tf = transforms.Compose(
-            [
-                transforms.ToTensor(),
-                transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
-            ]
-        )
+        if self.is_normalize:
+            self.tf = transforms.Compose(
+                [
+                    transforms.ToTensor(),
+                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+                ]
+            )
+        else:
+            self.tf = transforms.Compose(
+                [
+                    transforms.ToTensor()
+                ]
+            )
 
     def __len__(self):
         return len(self.files[self.split])
@@ -74,9 +83,16 @@ class pascalVOCLoader(data.Dataset):
             img = img.resize((self.img_size[0], self.img_size[1]))  # uint8 with RGB mode
             lbl = lbl.resize((self.img_size[0], self.img_size[1]))
         img = self.tf(img)
+
         lbl = torch.from_numpy(np.array(lbl)).long()
         lbl[lbl == 255] = 0
-        return img, lbl
+        # Map the label to one-hot encoding
+        lbl = lbl.view(-1,1)
+        lbl_onehot = torch.LongTensor(self.img_size[0] * self.img_size[1], self.n_classes)
+        lbl_onehot.zero_()
+        lbl_onehot.scatter_(1, lbl, 1)
+        lbl_onehot = lbl_onehot.view(self.img_size[0], self.img_size[1],self.n_classes).permute(2,0,1)
+        return img, lbl_onehot
 
     def get_pascal_labels(self):
         """Load the mapping that associates pascal classes with label colors
