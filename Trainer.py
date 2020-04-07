@@ -1,9 +1,5 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional
-
 from torch.utils import data
-import matplotlib.pyplot as plt
 
 from loader import pascalVOCLoader
 
@@ -14,9 +10,10 @@ class trainer():
         optimizer,
         criterion,
         net,
-        local_path,
+        local_path = "./VOC2012",
         rounds = 2,
-        bs = 4            
+        bs = 4,
+        save_path = None          
     ):
 
         self.optimizer = optimizer
@@ -25,8 +22,8 @@ class trainer():
         self.local_path = local_path
         self.rounds = rounds
         self.bs = bs
-
-        dst = pascalVOCLoader(root=local_path)
+        self.save_path = save_path
+        dst = pascalVOCLoader(root=local_path, split="train")
         self.trainloader = data.DataLoader(dst, batch_size=bs)
 
 
@@ -49,15 +46,19 @@ class trainer():
                 loss = self.criterion(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
-
                 #print statistics
                 running_loss += loss.item()
-                if i % 200 == 199:                      #print every 200 pictures
+                if i % 20 == 19:                      #print every 20*self.bs pictures
                     print('[%d, %5d] loss: %.3f' %
-                        (epoch + 1, i + 1, running_loss / 2000))
+                        (epoch + 1, (i + 1)*self.bs, running_loss / (20*self.bs)))
                     running_loss = 0.0
-
+                
         print('Finished Training')
+
+        # Save the trained NN
+        if not self.save_path is None:
+            torch.save(self.net, self.save_path)
+            print('Model Saved')
 
 
 

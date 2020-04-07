@@ -1,6 +1,3 @@
-
-# coding: utf-8
-
 # Modified by Richard Wu on 2020/4/6
 
 import os
@@ -88,7 +85,7 @@ class pascalVOCLoader(data.Dataset):
         lbl[lbl == 255] = 0
         # Map the label to one-hot encoding
         lbl = lbl.view(-1,1)
-        lbl_onehot = torch.LongTensor(self.img_size[0] * self.img_size[1], self.n_classes)
+        lbl_onehot = torch.FloatTensor(self.img_size[0] * self.img_size[1], self.n_classes)
         lbl_onehot.zero_()
         lbl_onehot.scatter_(1, lbl, 1)
         lbl_onehot = lbl_onehot.view(self.img_size[0], self.img_size[1],self.n_classes).permute(2,0,1)
