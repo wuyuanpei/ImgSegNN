@@ -15,7 +15,7 @@ class sampler():
         net,
         local_path = "./VOC2012",
         num_images = 1,
-        shuffle = False      
+        shuffle = True      
     ):
 
         self.net = net

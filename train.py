@@ -29,10 +29,10 @@ net = seg_path(
 
 # Objective function and optimization method
 criterion = nn.MSELoss()
-optimizer = optim.SGD(net.parameters(), lr=0.001)
+optimizer = optim.SGD(net.parameters(), lr=0.0001)
 
 # The path to save the trained NN
-save_path = "./Models/NN1.net"
+save_path = "./Models/NN2.net"
 
 # Build the trainer
 t = trainer(
@@ -40,7 +40,7 @@ t = trainer(
         criterion = criterion,
         optimizer = optimizer,
         save_path = save_path,
-        rounds = 10
+        rounds = 30
     )
 
 # Train

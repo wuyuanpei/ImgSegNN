@@ -3,6 +3,9 @@ from torch.utils import data
 
 from loader import pascalVOCLoader
 
+'''
+    Train the NN using trainning data
+'''
 class trainer():
 
     def __init__(
@@ -58,7 +61,7 @@ class trainer():
                 #print statistics
                 running_loss += loss.item()
                 if i % 20 == 19:                      #print every 20*self.bs pictures
-                    print('[%d, %4d]\tloss: %.5f' %
+                    print('[%d, %4d]\t%.5f' %
                         (epoch + 1, (i + 1)*self.bs, running_loss / (20*self.bs)))
                     running_loss = 0.0
                 
