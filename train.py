@@ -39,30 +39,10 @@ t = trainer(
         net = net,
         criterion = criterion,
         optimizer = optimizer,
-        save_path = save_path
+        save_path = save_path,
+        rounds = 10
     )
 
 # Train
 t.train()
-
-
-# # To read a NN and test
-# model = torch.load("./Models/NN1.net")
-# model.eval()
-
-# local_path = "./VOC2012" # Root directory of VOC2012
-# bs = 4
-# dst = pascalVOCLoader(root=local_path, split="train")
-# trainloader = data.DataLoader(dst, batch_size=bs)
-# print(dst.__len__())
-# for i, data in enumerate(trainloader):
-#     imgs, labels = data
-#     print(imgs.size())
-#     print(imgs[0][0][200])
-#     print(labels.size())
-#     print(labels[0][0][200])
-#     outputs = model(imgs)
-#     print(outputs.size())
-#     print(outputs[0][0][200])
-#     break; # ONLY FOR TESTING
 
