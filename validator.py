@@ -3,6 +3,9 @@ from torch.utils import data
 
 from loader import pascalVOCLoader
 
+'''
+    Validate the NN using validation data
+'''
 class validator():
 
     def __init__(
