@@ -8,7 +8,8 @@ Finish implemented:
 |U-Net|Cross Entropy|SGD|
 |Residual U-Net||Adam|
 
-## Train
+## Usage
+### Train
 To train and save the model. Average loss during each epoch will be printed out in the format **[epoch number] loss**
 ```
 usage: python train.py model fn loss opt lr epoch
@@ -21,7 +22,7 @@ usage: python train.py model fn loss opt lr epoch
 e.g.: python train.py unet NN1 CE Adam 0.001 50
 ```
 
-## Sample
+### Sample
 To sample several images with the model. Print out original images, ground truth, and the outputs of the model.
 ```
 usage: python sample.py fn num shffl set
@@ -32,7 +33,7 @@ usage: python sample.py fn num shffl set
 e.g.: python sample.py NN1 2 True val
 ```
 
-## Validate
+### Validate
 To print out the validation error using validation set
 ```
 usage: python validate.py fn loss
@@ -40,3 +41,11 @@ usage: python validate.py fn loss
     loss:   CE (for CrossEntropy)
 e.g.: python validate.py NN1 CE
 ```
+
+## Examples
+|Name|Model|Loss|Opt|LR|Epoch|
+|:---|:---|:---|:---|:---|:---|
+|NN50epoch|Unet|CE|Adam|0.0005|50|
+|NN150epoch|Unet|CE|Adam|0.0005|150|
+
+(http://github.com/wuyuanpei/ImgSegNN/edit/master/README.md/xxx.png)
