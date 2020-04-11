@@ -16,26 +16,26 @@ from trainer import trainer
 
 from unet import unet
 
-# # Different Blocks of the NN
-# inNet = in_block()
-# encoderNet = encoder()
-# decoderNet = decoder()
-# outNet = seg_out_block()
+# Different Blocks of the NN
+inNet = in_block()
+encoderNet = encoder()
+decoderNet = decoder()
+outNet = seg_out_block()
 
-# # Whole NN
-# net = seg_path(
-#         in_block=inNet,
-#         encoder=encoderNet,
-#         decoder=decoderNet,
-#         seg_out_block=outNet)
-net = unet()
+# Whole NN
+net = seg_path(
+        in_block=inNet,
+        encoder=encoderNet,
+        decoder=decoderNet,
+        seg_out_block=outNet)
+#net = unet()
 
 # Objective function and optimization method
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(net.parameters(), lr=0.001)
+optimizer = optim.Adam(net.parameters(), lr=0.0005)
 
 # The path to save the trained NN
-save_path = "./Models/UNet.net"
+save_path = "./Models/NN3.net"
 
 # Build the trainer
 t = trainer(
@@ -43,7 +43,7 @@ t = trainer(
         criterion = criterion,
         optimizer = optimizer,
         save_path = save_path,
-        rounds = 2
+        rounds = 1
     )
 
 # Train

@@ -59,6 +59,8 @@ class trainer():
                 #calculate loss, backpropogate, step
                 loss = self.criterion(outputs, labels) # labels is batch_size*512*512 (each entry is 0,1,..,or 20)
                 #loss = cross_entropy2d(outputs, labels)
+                #print(loss)
+                
                 loss.backward()
                 self.optimizer.step()
                 #print statistics
@@ -68,10 +70,10 @@ class trainer():
                         (epoch + 1, (i + 1)*self.bs, running_loss / (20*self.bs)))
                     running_loss = 0.0
 
-                    # [_,indices] = torch.max(outputs,1)
-                    # self.dst.decode_segmap(
-                    # label_mask = indices[0].cpu().numpy(),
-                    # plot = True)
+                    [_,indices] = torch.max(outputs,1)
+                    self.dst.decode_segmap(
+                    label_mask = indices[0].cpu().numpy(),
+                    plot = True)
                 
         print('Finished Training')
 

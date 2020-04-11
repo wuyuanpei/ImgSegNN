@@ -61,7 +61,7 @@ class sampler():
 
 
 # To read a NN and validate
-net = torch.load("./Models/UNet.net")
+net = torch.load("./Models/NN3.net")
 
 # Build the sampler
 s = sampler(

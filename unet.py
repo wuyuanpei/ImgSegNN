@@ -51,7 +51,6 @@ class unet(nn.Module):
 
         filters = [64, 128, 256, 512, 1024]
         filters = [int(x / self.feature_scale) for x in filters]
-        print("filters:"+str(filters))
         # downsampling
         self.conv1 = unetConv2(self.in_channels, filters[0], self.is_batchnorm)
         self.maxpool1 = nn.MaxPool2d(kernel_size=2)
