@@ -29,7 +29,9 @@ class sampler():
     def sample(self):
 
         #convert it into GPU version
-        self.net.to(self.device)  
+        self.net.to(self.device)
+
+        self.net.eval()  
 
         for i, data in enumerate(self.sampleloader, 0):
             #get the input
@@ -38,36 +40,28 @@ class sampler():
             #convert it into GPU version
             inputs, labels = inputs.to(self.device), labels.to(self.device)
 
-            #forward the inputs
+            # #forward the inputs
             outputs = self.net(inputs)
-            
-            inputs = inputs.cpu().numpy()
-            
-            inputs = np.transpose(inputs, [0,2,3,1])
 
-            # Map back from one-hot encoding
+            # Map back from one-hot encoding to index in each entry
             [_,indices] = torch.max(outputs,1)
-
             self.dst.decode_segmap(
                 label_mask = indices[0].cpu().numpy(),
                 plot = True)
 
-            [_,indices] = torch.max(labels,1)
-
             self.dst.decode_segmap(
-                label_mask = indices[0].cpu().numpy(),
+                label_mask = labels[0].cpu().numpy(),
                 plot = True)
-
             
-            if i == self.num_images - 1:
+            plt.imshow(inputs[0].cpu().transpose(0,2).transpose(0,1))
+            plt.show()
+            if i == self.num_images - 1: # Print out the first image actually
                 break
 
 
 
 # To read a NN and validate
-net = torch.load("./Models/NN1.net")
-net.eval()
-
+net = torch.load("./Models/UNet.net")
 
 # Build the sampler
 s = sampler(

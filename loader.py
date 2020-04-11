@@ -24,7 +24,7 @@ class pascalVOCLoader(data.Dataset):
         root,
         split="trainval",
         is_transform=True,
-        is_normalize=True,
+        is_normalize=False,
         img_size=512,
         test_mode=False,
     ):
@@ -84,12 +84,12 @@ class pascalVOCLoader(data.Dataset):
         lbl = torch.from_numpy(np.array(lbl)).long()
         lbl[lbl == 255] = 0
         # Map the label to one-hot encoding
-        lbl = lbl.view(-1,1)
-        lbl_onehot = torch.FloatTensor(self.img_size[0] * self.img_size[1], self.n_classes)
-        lbl_onehot.zero_()
-        lbl_onehot.scatter_(1, lbl, 1)
-        lbl_onehot = lbl_onehot.view(self.img_size[0], self.img_size[1],self.n_classes).permute(2,0,1)
-        return img, lbl_onehot
+        # lbl = lbl.view(-1,1)
+        # lbl_onehot = torch.FloatTensor(self.img_size[0] * self.img_size[1], self.n_classes)
+        # lbl_onehot.zero_()
+        # lbl_onehot.scatter_(1, lbl, 1)
+        # lbl_onehot = lbl_onehot.view(self.img_size[0], self.img_size[1],self.n_classes).permute(2,0,1)
+        return img, lbl
 
     def get_pascal_labels(self):
         """Load the mapping that associates pascal classes with label colors

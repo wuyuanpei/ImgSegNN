@@ -1,7 +1,9 @@
 import torch
 from torch.utils import data
+import numpy as np
 
 from loader import pascalVOCLoader
+from loss import cross_entropy2d
 
 '''
     Train the NN using trainning data
@@ -27,16 +29,16 @@ class trainer():
         self.rounds = rounds
         self.bs = bs
         self.save_path = save_path
-        dst = pascalVOCLoader(root=local_path, split="train")
-        self.trainloader = data.DataLoader(dst, batch_size=bs)
+        self.dst = pascalVOCLoader(root=local_path, split="train")
+        self.trainloader = data.DataLoader(self.dst, batch_size=bs)
 
 
     def train(self):
-        
         print("Start Training")
-
         #convert it into GPU version
         self.net.to(self.device)
+
+        self.net.train()
 
         for epoch in range(self.rounds):  # loop over the dataset multiple times
 
@@ -52,10 +54,11 @@ class trainer():
                 self.optimizer.zero_grad()
 
                 #forward the inputs
-                outputs = self.net(inputs)
+                outputs = self.net(inputs) # outputs is batch_size*21*512*512 (one hot encoding)
 
                 #calculate loss, backpropogate, step
-                loss = self.criterion(outputs, labels)
+                loss = self.criterion(outputs, labels) # labels is batch_size*512*512 (each entry is 0,1,..,or 20)
+                #loss = cross_entropy2d(outputs, labels)
                 loss.backward()
                 self.optimizer.step()
                 #print statistics
@@ -64,6 +67,11 @@ class trainer():
                     print('[%d, %4d]\t%.5f' %
                         (epoch + 1, (i + 1)*self.bs, running_loss / (20*self.bs)))
                     running_loss = 0.0
+
+                    # [_,indices] = torch.max(outputs,1)
+                    # self.dst.decode_segmap(
+                    # label_mask = indices[0].cpu().numpy(),
+                    # plot = True)
                 
         print('Finished Training')
 
