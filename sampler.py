@@ -1,5 +1,6 @@
 import torch
 from torch.utils import data
+import torchvision
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,15 +14,16 @@ class sampler():
     def __init__(
         self,
         net,
+        shuffle = "True",
         local_path = "./VOC2012",
         num_images = 1,
-        shuffle = True      
+        split = "val"     
     ):
 
         self.net = net
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.local_path = local_path
-        self.dst = pascalVOCLoader(root=local_path, split="val")
+        self.dst = pascalVOCLoader(root=local_path, split=split)
         self.sampleloader = data.DataLoader(self.dst, batch_size=1, shuffle=shuffle)
         self.num_images = num_images
 
@@ -33,6 +35,7 @@ class sampler():
 
         self.net.eval()  
 
+        images_set = []
         for i, data in enumerate(self.sampleloader, 0):
             #get the input
             inputs, labels = data
@@ -45,32 +48,32 @@ class sampler():
 
             # Map back from one-hot encoding to index in each entry
             [_,indices] = torch.max(outputs,1)
-            self.dst.decode_segmap(
+            outputs = self.dst.decode_segmap(
                 label_mask = indices[0].cpu().numpy(),
-                plot = True)
+                plot = False)
 
-            self.dst.decode_segmap(
+            labels = self.dst.decode_segmap(
                 label_mask = labels[0].cpu().numpy(),
-                plot = True)
+                plot = False)
             
-            plt.imshow(inputs[0].cpu().transpose(0,2).transpose(0,1))
-            plt.show()
-            if i == self.num_images - 1: # Print out the first image actually
+            # Normalize back and print image
+            inputs = inputs.squeeze()
+            inputs[0] = inputs[0]*0.229+0.485
+            inputs[1] = inputs[1]*0.224+0.456
+            inputs[2] = inputs[2]*0.225+0.406
+            inputs = inputs.cpu().transpose(0,2).transpose(0,1)
+
+            images = [inputs, labels, outputs]
+            images_set.append(images)
+            if i == self.num_images - 1:
                 break
-
-
-
-# To read a NN and validate
-net = torch.load("./Models/NN3.net")
-
-# Build the sampler
-s = sampler(
-        net = net
-    )
-
-s.sample()
-
-
-
-
-
+        
+        # Draw images
+        for i in range(self.num_images):
+            plt.subplot(self.num_images,3,i * 3 + 1)
+            plt.imshow(images_set[i][0])
+            plt.subplot(self.num_images,3,i * 3 + 2)
+            plt.imshow(images_set[i][1])
+            plt.subplot(self.num_images,3,i * 3 + 3)
+            plt.imshow(images_set[i][2])
+        plt.show()

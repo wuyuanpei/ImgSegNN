@@ -16,7 +16,7 @@ class trainer():
         criterion,
         net,
         local_path = "./VOC2012",
-        rounds = 5,
+        rounds = 50,
         bs = 5,
         save_path = None,          
     ):
@@ -42,7 +42,7 @@ class trainer():
 
         for epoch in range(self.rounds):  # loop over the dataset multiple times
 
-            running_loss = 0.0
+            average_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 #get the input
                 inputs, labels = data
@@ -64,16 +64,14 @@ class trainer():
                 loss.backward()
                 self.optimizer.step()
                 #print statistics
-                running_loss += loss.item()
-                if i % 20 == 19:                      #print every 20*self.bs pictures
-                    print('[%d, %4d]\t%.5f' %
-                        (epoch + 1, (i + 1)*self.bs, running_loss / (20*self.bs)))
-                    running_loss = 0.0
+                average_loss += loss.item()
+                # if i % 20 == 19:                      #print every 20*self.bs pictures
+                #     print('[%d, %4d]\t%.5f' %
+                #         (epoch + 1, (i + 1)*self.bs, running_loss / 20))
+                #     running_loss = 0.0
 
-                    [_,indices] = torch.max(outputs,1)
-                    self.dst.decode_segmap(
-                    label_mask = indices[0].cpu().numpy(),
-                    plot = True)
+            print('[%d]\t%.5f' %
+                         (epoch + 1, average_loss / i))
                 
         print('Finished Training')
 

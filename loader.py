@@ -24,7 +24,7 @@ class pascalVOCLoader(data.Dataset):
         root,
         split="trainval",
         is_transform=True,
-        is_normalize=False,
+        is_normalize=True,
         img_size=512,
         test_mode=False,
     ):

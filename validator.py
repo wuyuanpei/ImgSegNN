@@ -13,7 +13,7 @@ class validator():
         criterion,
         net,
         local_path = "./VOC2012",  
-        bs = 3        
+        bs = 5      
     ):
 
         self.criterion = criterion
@@ -33,6 +33,7 @@ class validator():
         self.net.to(self.device)
 
         running_loss = 0.0
+        average_loss = 0.0
 
         for i, data in enumerate(self.valloader, 0):
             #get the input
@@ -49,12 +50,16 @@ class validator():
             
             #print statistics
             running_loss += loss.item()
+            average_loss += loss.item()
             if i % 20 == 19:                      #print every 20*self.bs pictures
                 print('[%4d]\t%.5f' %
-                    ((i + 1)*self.bs, running_loss / (20*self.bs)))
+                    ((i + 1)*self.bs, running_loss / 20))
                 running_loss = 0.0
-                
+        
+        
         print('Finished Validating')
+        print('average: %.5f' % (average_loss / i))
+
 
 
 

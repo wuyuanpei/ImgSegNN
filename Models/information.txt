@@ -1,0 +1,4 @@
+Name		Model	Loss	Opt	LR	epoch
+---------------------------------------------------------------------------------
+NN50epoch	Unet	CE	Adam	0.0005	50
+NN150epoch	Unet	CE	Adam	0.0005	150

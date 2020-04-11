@@ -4,4 +4,4 @@
 /__pycache__/*
 /.vscode/*
 # ignore trained NN
-/Models/*.net
+# /Models/*.net
