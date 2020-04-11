@@ -48,4 +48,12 @@ e.g.: python validate.py NN1 CE
 |NN50epoch|Unet|CE|Adam|0.0005|50|
 |NN150epoch|Unet|CE|Adam|0.0005|150|
 
-(http://github.com/wuyuanpei/ImgSegNN/edit/master/README.md/xxx.png)
+```
+python sample.py NN150epoch 2 True val
+```
+![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN150epochVal.png)
+
+```
+python sample.py NN50epoch 2 True train
+```
+![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN50epochTrain.png)
