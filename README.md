@@ -12,14 +12,33 @@ Finish implemented:
 ### Train
 To train and save the model. Average loss during each epoch will be printed out in the format **[epoch number] loss**
 ```
-usage: python train.py model fn loss opt lr epoch
+usage: python train.py model fn loss opt lr epoch bs ths pin_m
     model:  unet or resunet
     fn:     the filename to save the model after training
     loss:   CE (for CrossEntropy)
     opt:    SGD or Adam
     lr:     learning rate
     epoch:  number of epochs
-e.g.: python train.py unet NN1 CE Adam 0.001 50
+    bs:     batch size (based on your GPU memory)
+    ths:    number of threads (based on your CPU)
+    pin_m:  True/False to pin your memory for GPU
+e.g.: python train.py unet NN1 CE Adam 0.001 50 5 4 True
+```
+
+### Re-train
+To retrain a trained model and save it.
+```
+usage: python retrain.py fn_r fn_w loss opt lr epoch bs ths pin_m
+    fn_r:   the filename to read the model before training
+    fn_w:   the filename to save the model after training
+    loss:   CE (for CrossEntropy)
+    opt:    SGD or Adam
+    lr:     learning rate
+    epoch:  number of epochs
+    bs:     batch size (based on your GPU memory)
+    ths:    number of threads (based on your CPU)
+    pin_m:  True/False to pin your memory for GPU
+e.g.: python retrain.py NN1 NN2 CE Adam 0.001 50 5 4 True
 ```
 
 ### Sample

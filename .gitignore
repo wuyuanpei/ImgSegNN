@@ -6,5 +6,3 @@
 /.vscode/*
 
 # ignore trained NN
-
-/Models/RUN100epoch.net
