@@ -184,4 +184,3 @@ class pascalVOCLoader(data.Dataset):
                 lbl = self.encode_segmap(m.imread(lbl_path))
                 lbl = m.toimage(lbl, high=lbl.max(), low=lbl.min())
                 m.imsave(pjoin(target_path, fname), lbl)
-                
