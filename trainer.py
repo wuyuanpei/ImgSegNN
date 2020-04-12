@@ -34,7 +34,7 @@ class trainer():
         self.dst = pascalVOCLoader(root=local_path, split="train")
         self.trainloader = data.DataLoader(
                                         self.dst, 
-                                        batch_size=bs
+                                        batch_size=bs,
                                         num_workers=num_workers,
                                         pin_memory=pin_memory)
 
