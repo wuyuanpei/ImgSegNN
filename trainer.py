@@ -18,7 +18,9 @@ class trainer():
         local_path = "./VOC2012",
         rounds = 50,
         bs = 5,
-        save_path = None,          
+        save_path = None,
+        num_workers = 4,
+        pin_memory = True,          
     ):
 
         self.optimizer = optimizer
@@ -30,7 +32,11 @@ class trainer():
         self.bs = bs
         self.save_path = save_path
         self.dst = pascalVOCLoader(root=local_path, split="train")
-        self.trainloader = data.DataLoader(self.dst, batch_size=bs)
+        self.trainloader = data.DataLoader(
+                                        self.dst, 
+                                        batch_size=bs
+                                        num_workers=num_workers,
+                                        pin_memory=pin_memory)
 
 
     def train(self):

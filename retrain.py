@@ -22,26 +22,8 @@ def main(argv):
         usage()
         return
 
-    # Select Model
-    if argv[1] == "resunet":
-        # Different Blocks of the NN
-        inNet = in_block()
-        encoderNet = encoder()
-        decoderNet = decoder()
-        outNet = seg_out_block()
-
-
-         # Whole NN
-        net = seg_path(
-                 in_block=inNet,
-                 encoder=encoderNet,
-                 decoder=decoderNet,
-                 seg_out_block=outNet)
-    elif argv[1] == "unet":
-        net = unet()
-    else:
-        usage()
-        return
+    # Read Model
+    net = torch.load("./Models/"+argv[1]+".net")
 
     # Select objective function and optimization method
     if argv[3] == "CE":
@@ -77,9 +59,9 @@ def main(argv):
     t.train()
 
 def usage():
-    print("usage: python train.py model fn loss opt lr epoch bs ths pin_m")
-    print("\tmodel:\tunet or resunet")
-    print("\tfn:\tthe filename to save the model after training")
+    print("usage: python retrain.py fn_r fn_w loss opt lr epoch bs ths pin_m")
+    print("\tfn_r:\tthe filename to read the model before training")
+    print("\tfn_w:\tthe filename to save the model after training")
     print("\tloss:\tCE (for CrossEntropy)")
     print("\topt:\tSGD or Adam")
     print("\tlr:\tlearning rate")
@@ -87,7 +69,7 @@ def usage():
     print("\tbs:\tbatch size (based on your GPU memory)")
     print("\tths:\tnumber of threads (based on your CPU)")
     print("\tpin_m:\tTrue/False to pin your memory for GPU")
-    print("e.g.: python train.py unet NN1 CE Adam 0.001 50 5 4 True")
+    print("e.g.: python retrain.py NN1 NN2 CE Adam 0.001 50 5 4 True")
 
 if __name__ == "__main__":
     main(sys.argv)

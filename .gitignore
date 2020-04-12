@@ -1,7 +1,10 @@
 # ignore data file
+
 /VOC2012/*
 # ignore IDE cache files
 /__pycache__/*
 /.vscode/*
+
 # ignore trained NN
-# /Models/*.net
+
+/Models/RUN100epoch.net

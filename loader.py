@@ -3,7 +3,6 @@
 import os
 from os.path import join as pjoin
 import collections
-import json
 import torch
 import numpy as np
 import scipy.misc as m
