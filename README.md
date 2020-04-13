@@ -68,11 +68,11 @@ e.g.: python validate.py NN1 CE
 |NN150epoch|Unet|CE|Adam|0.0005|150|
 
 ```
-python sample.py NN150epoch 2 True val
+python sample.py NN041102 2 True val
 ```
-![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN150epochVal.png)
+![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041102Val.png)
 
 ```
-python sample.py NN50epoch 2 True train
+python sample.py NN041101 2 True train
 ```
-![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN50epochTrain.png)
+![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041101Train.png)

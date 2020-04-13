@@ -70,17 +70,23 @@ class pascalVOCLoader(data.Dataset):
         lbl = Image.open(lbl_path)
         if self.is_transform:
             im, lbl = self.transform(im, lbl)
+
         return im, lbl
 
     def transform(self, img, lbl):
         if self.img_size == ("same", "same"):
             pass
         else:
-            img = img.resize((self.img_size[0], self.img_size[1]))  # uint8 with RGB mode
-            lbl = lbl.resize((self.img_size[0], self.img_size[1]))
+            img = img.resize((self.img_size[0], self.img_size[1]),Image.NEAREST)  # uint8 with RGB mode
+            lbl = lbl.resize((self.img_size[0], self.img_size[1]),Image.NEAREST)
+
         img = self.tf(img)
 
         lbl = torch.from_numpy(np.array(lbl)).long()
+
+        if torch.max(lbl) > 20:
+            assert False
+
         lbl[lbl == 255] = 0
         # Map the label to one-hot encoding
         # lbl = lbl.view(-1,1)
