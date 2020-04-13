@@ -9,6 +9,7 @@ Model trained with different combinations of structures, loss functions, optimiz
 |Residual U-Net||Adam|
 
 Training set includes 2613 images. Validation set includes 300 images. 20 classes of objects plus 1 layer of background.
+
 ![color-map.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/color-map.png)
 
 ## Usage
