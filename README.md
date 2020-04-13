@@ -64,8 +64,8 @@ e.g.: python validate.py NN1 CE
 ## Examples
 |Name|Model|Loss|Opt|LR|Epoch|
 |:---|:---|:---|:---|:---|:---|
-|NN50epoch|Unet|CE|Adam|0.0005|50|
-|NN150epoch|Unet|CE|Adam|0.0005|150|
+|NN041101|Unet|CE|Adam|0.0005|50|
+|NN041102|Unet|CE|Adam|0.0005|150|
 
 ```
 python sample.py NN041102 2 True val
