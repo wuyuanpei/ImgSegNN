@@ -45,7 +45,7 @@ e.g.: python retrain.py NN1 NN2 CE Adam 0.001 50 5 4 True
 To sample several images with the model. Print out original images, ground truth, and the outputs of the model.
 ```
 usage: python sample.py fn num shffl set
-    fn:     the filename to save the model after training
+    fn:     the filename to open the model
     num:    number of pictures to print out
     shffl:  True/False to shuffle the image set
     set:    val or train, choose data set
@@ -56,7 +56,7 @@ e.g.: python sample.py NN1 2 True val
 To print out the validation error using validation set
 ```
 usage: python validate.py fn loss
-    fn:     the filename to save the model after training
+    fn:     the filename to open the model
     loss:   CE (for CrossEntropy)
 e.g.: python validate.py NN1 CE
 ```
