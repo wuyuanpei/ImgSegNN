@@ -2,11 +2,14 @@
 Image Semantic Segmentation Neuron Networks built by Pytorch with CUDA and trained by PASCAL VOC 2012
 
 ## Introduction
-Finish implemented:
+Model trained with different combinations of structures, loss functions, optimizers, and number of epochs
 |Models|Loss fn|Optimizer
 |:---|:---|:---|
 |U-Net|Cross Entropy|SGD|
 |Residual U-Net||Adam|
+
+Training set includes 2613 images. Validation set includes 300 images. 20 classes of objects plus 1 layer of background.
+![color-map.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/color-map.png)
 
 ## Usage
 ### Train
@@ -70,9 +73,9 @@ e.g.: python validate.py NN1 CE
 ```
 python sample.py NN041102 2 True val
 ```
-![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041102Val.png)
+![NN041102Val.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041102Val.png)
 
 ```
 python sample.py NN041101 2 True train
 ```
-![NN150epochVal.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041101Train.png)
+![NN041101Train.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/NN041101Train.png)
