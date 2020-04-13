@@ -33,7 +33,7 @@ def main(argv):
 
 def usage():
     print("usage: python validate.py fn loss")
-    print("\tfn:\tthe filename to save the model after training")
+    print("\tfn:\tthe filename to open the model")
     print("\tloss:\tCE (for CrossEntropy)")
     print("e.g.: python validate.py NN1 CE")
 

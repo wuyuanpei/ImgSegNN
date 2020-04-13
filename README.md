@@ -55,6 +55,15 @@ usage: python sample.py fn num shffl set
 e.g.: python sample.py NN1 2 True val
 ```
 
+### Sample an Image
+To sample an image outside using a model
+```
+usage:      python image_sampler.py fn path
+    fn:     the filename to open the model
+    path:   the path of the image
+e.g.: python image_sampler.py NN1 ./a.png
+```
+
 ### Validate
 To print out the validation error using validation set
 ```

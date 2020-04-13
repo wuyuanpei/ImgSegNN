@@ -25,7 +25,7 @@ def main(argv):
 
 def usage():
     print("usage: python sample.py fn num shffl set")
-    print("\tfn:\tthe filename to save the model after training")
+    print("\tfn:\tthe filename to open the model")
     print("\tnum:\tnumber of pictures to print out")
     print("\tshffl:\tTrue/False to shuffle the image set")
     print("\tset:\tval or train, choose data set")
