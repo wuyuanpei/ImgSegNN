@@ -3,7 +3,10 @@ import torch
 import torch.nn.functional as F
 
 '''
-    This file contains the original Unet (only for testing)
+    This file contains the original Unet and its modification
+    Specifically:
+    Number of layers can be adjusted
+    Activation function can be changed: ReLU, LeakyReLu, Sigmoid
 '''
 class unetConv2(nn.Module):
     def __init__(self, in_size, out_size, is_batchnorm):
@@ -41,7 +44,7 @@ class unetUp(nn.Module):
 
 class unet(nn.Module):
     def __init__(
-        self, feature_scale=4, n_classes=21, is_deconv=True, in_channels=3, is_batchnorm=True
+        self, feature_scale=4, n_classes=21, is_deconv=True, in_channels=3, is_batchnorm=True, layers = 4, Activation = "ReLU"
     ):
         super(unet, self).__init__()
         self.is_deconv = is_deconv
