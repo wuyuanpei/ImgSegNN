@@ -12,6 +12,10 @@ Training set includes 2613 images. Validation set includes 300 images. 20 classe
 
 ![color-map.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/color-map.png)
 
+Example of a trained Unet:
+Input   Ground Truth    Output
+![TrainedExample.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/TrainedExample.png)
+
 ## Usage
 ### Train
 To train and save the model. Average loss during each epoch will be printed out in the format **[epoch number] loss**
