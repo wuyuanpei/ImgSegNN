@@ -12,8 +12,8 @@ Training set includes 2613 images. Validation set includes 300 images. 20 classe
 
 ![color-map.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/color-map.png)
 
-Example of a trained Unet:
-Input   Ground Truth    Output
+Example of a trained U-Net:
+
 ![TrainedExample.png](https://github.com/wuyuanpei/ImgSegNN/raw/master/readme-imgs/TrainedExample.png)
 
 ## Usage
