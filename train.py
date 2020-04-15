@@ -54,8 +54,8 @@ def main(argv):
         optimizer = optim.SGD(net.parameters(), lr=float(argv[5]))
     elif argv[4] == "Adam":
         optimizer = optim.Adam(net.parameters(), lr=float(argv[5]))
-    elif argv[4] == "Adagrad":
-        optimizer = optim.Adagrad(net.parameters(), lr=float(argv[5]))
+    elif argv[4] == "ASGD":
+        optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
     else:
         usage()
         return
