@@ -50,6 +50,10 @@ class trainer():
 
         for epoch in range(self.rounds):  # loop over the dataset multiple times
 
+            # Update the learning rate
+            if self.scheduler is not None:
+                    self.scheduler.step(epoch)
+
             average_loss = 0.0
             for i, data in enumerate(self.trainloader, 0):
                 #get the input
@@ -58,8 +62,6 @@ class trainer():
                 #convert it into GPU version
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
 
-                if self.scheduler is not None:
-                    self.scheduler.step()
                 #zero the autograder
                 self.optimizer.zero_grad()
 
