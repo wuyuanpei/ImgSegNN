@@ -13,6 +13,7 @@ from torch.utils import data
 from trainer import trainer
 from unet import unet
 import sys
+from torch_poly_lr_decay import PolynomialLRDecay
 
 
 # Main function for training
@@ -50,12 +51,31 @@ def main(argv):
         usage()
         return
 
+    scheduler = None
     if argv[4] == "SGD":
         optimizer = optim.SGD(net.parameters(), lr=float(argv[5]))
     elif argv[4] == "Adam":
         optimizer = optim.Adam(net.parameters(), lr=float(argv[5]))
     elif argv[4] == "ASGD":
         optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
+    elif argv[4] == "SGDp1":
+        optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=1.0)
+    elif argv[4] == "SGDp2":
+        optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=2.0)
+    elif argv[4] == "Adamp1":
+        optimizer = optim.Adam(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=1.0)
+    elif argv[4] == "Adamp2":
+        optimizer = optim.Adam(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=2.0)
+    elif argv[4] == "ASGDp1":
+        optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=1.0)
+    elif argv[4] == "ASGDp2":
+        optimizer = optim.ASGD(net.parameters(), lr=float(argv[5]))
+        scheduler = PolynomialLRDecay(optimizer, max_decay_steps=int(argv[6]), end_learning_rate=0.0001, power=2.0)
     else:
         usage()
         return
@@ -68,6 +88,7 @@ def main(argv):
         net=net,
         criterion=criterion,
         optimizer=optimizer,
+        scheduler=scheduler,
         save_path=save_path,
         rounds=int(argv[6]),
         bs=int(argv[7]),
