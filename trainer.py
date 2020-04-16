@@ -13,6 +13,7 @@ class trainer():
     def __init__(
         self,
         optimizer,
+        scheduler,
         criterion,
         net,
         local_path = "./VOC2012",
@@ -24,6 +25,7 @@ class trainer():
     ):
 
         self.optimizer = optimizer
+        self.scheduler = scheduler
         self.criterion = criterion
         self.net = net
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -56,6 +58,8 @@ class trainer():
                 #convert it into GPU version
                 inputs, labels = inputs.to(self.device), labels.to(self.device)
 
+                if self.scheduler is not None:
+                    self.scheduler.step()
                 #zero the autograder
                 self.optimizer.zero_grad()
 
