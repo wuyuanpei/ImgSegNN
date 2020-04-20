@@ -39,7 +39,13 @@ def main(argv):
                  decoder=decoderNet,
                  seg_out_block=outNet)
     elif argv[1] == "unet":
+        net = unet(channel_scale=1)
+    elif argv[1] == "unet4Chann":
         net = unet()
+    elif argv[1] == "unetLeakyR":
+        net = unet(func = "L")
+    elif argv[1] == "unet3Layer":
+        net = unet(layers = 3)
     else:
         usage()
         return
@@ -101,11 +107,11 @@ def main(argv):
 
 def usage():
     print("usage: python train.py model fn loss opt lr epoch bs ths pin_m")
-    print("\tmodel:\tunet or resunet")
+    print("\tmodel:\tresunet or unet or unet4Chann or unet3Layer or unetLeakyR")
     print("\tfn:\tthe filename to save the model after training")
     print("\tloss:\tCE (for CrossEntropy)")
-    print("\topt:\tSGD or Adam")
-    print("\tlr:\tlearning rate")
+    print("\topt:\tSGD or Adam or ASGD, can be with p1 or p2 (PLR)")
+    print("\tlr:\tlearning rate, or start LR in PLR")
     print("\tepoch:\tnumber of epochs")
     print("\tbs:\tbatch size (based on your GPU memory)")
     print("\tths:\tnumber of threads (based on your CPU)")
