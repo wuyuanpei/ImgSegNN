@@ -6,7 +6,10 @@ Model trained with different combinations of structures, loss functions, optimiz
 |Models|Loss fn|Optimizer
 |:---|:---|:---|
 |U-Net|Cross Entropy|SGD|
-|Residual U-Net||Adam|
+|U-Net less channels||ASGD|
+|U-Net less layers||Adam|
+|U-Net diff Activation|||
+|Residual U-Net|||
 
 Training set includes 2613 images. Validation set includes 300 images. 20 classes of objects plus 1 layer of background.
 
