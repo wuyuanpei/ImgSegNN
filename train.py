@@ -46,6 +46,8 @@ def main(argv):
         net = unet(func = "L")
     elif argv[1] == "unet3Layer":
         net = unet(layers = 3)
+    elif argv[1] == "unet2Chann":
+        net = unet(channel_scale=2)
     else:
         usage()
         return
