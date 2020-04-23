@@ -3,10 +3,13 @@ Image Semantic Segmentation Neuron Networks built by Pytorch with CUDA and train
 
 ## Introduction
 Model trained with different combinations of structures, loss functions, optimizers, and number of epochs
-|Models|Loss fn|Optimizer
-|:---|:---|:---|
-|U-Net|Cross Entropy|SGD|
-|Residual U-Net||Adam|
+|Models|Loss fn|Optimizer|Learning rate|LR scheduler
+|:---|:---|:---|:---|:---|
+|U-Net|Cross Entropy|SGD|0.001|No scheduler|
+|U-Net less channels||ASGD|0.0001|1-Polynomial|
+|U-Net less layers||Adam|0.00001|2-Polynomial|
+|U-Net diff Activation|||||
+|Residual U-Net|||||
 
 Training set includes 2613 images. Validation set includes 300 images. 20 classes of objects plus 1 layer of background.
 

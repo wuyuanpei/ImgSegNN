@@ -6,3 +6,4 @@
 /.vscode/*
 
 # ignore trained NN
+/Models/NN042001.net
