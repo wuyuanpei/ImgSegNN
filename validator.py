@@ -13,7 +13,7 @@ class validator():
         criterion,
         net,
         local_path = "./VOC2012",  
-        bs = 5      
+        bs = 1      
     ):
 
         self.criterion = criterion
