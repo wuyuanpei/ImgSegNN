@@ -88,12 +88,14 @@ class unet(nn.Module):
         self.maxpool3 = nn.MaxPool2d(kernel_size=2)
 
         self.conv4 = unetConv2(channels[2], channels[3], self.is_batchnorm, func=func)
-        self.maxpool4 = nn.MaxPool2d(kernel_size=2)
 
-        self.center = unetConv2(channels[3], channels[4], self.is_batchnorm, func=func)
+        if layers == 4:
+            self.maxpool4 = nn.MaxPool2d(kernel_size=2)
+            self.center = unetConv2(channels[3], channels[4], self.is_batchnorm, func=func)
+            self.up_concat4 = unetUp(channels[4], channels[3], self.is_deconv, func=func)
 
         # upsampling
-        self.up_concat4 = unetUp(channels[4], channels[3], self.is_deconv, func=func)
+            
         self.up_concat3 = unetUp(channels[3], channels[2], self.is_deconv, func=func)
         self.up_concat2 = unetUp(channels[2], channels[1], self.is_deconv, func=func)
         self.up_concat1 = unetUp(channels[1], channels[0], self.is_deconv, func=func)
