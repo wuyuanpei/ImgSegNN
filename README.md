@@ -74,7 +74,7 @@ usage: python validate.py fn loss
         loss:   CE (for CrossEntropy)
 e.g.: python validate.py NN1 CE
 ```
-
+### Examples
 ```
 python sample.py NN041102 2 True val
 ```
